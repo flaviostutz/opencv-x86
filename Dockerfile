@@ -11,7 +11,8 @@ RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ trusty multiverse" >> /etc/ap
            libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev \
            libvorbis-dev libxvidcore-dev x264 v4l-utils unzip ssh openssh-server
 
-RUN wget https://github.com/Itseez/opencv/archive/3.0.0.zip \
+RUN cd /opt
+     && wget https://github.com/Itseez/opencv/archive/3.0.0.zip \
      && unzip 3.0.0.zip \
      && cd opencv-3.0.0 \
      && mkdir release \
@@ -21,6 +22,8 @@ RUN wget https://github.com/Itseez/opencv/archive/3.0.0.zip \
      && make install \
      && bash -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf' \
      && ldconfig
+     && rm /opt/3.0.0.zip
+     && rm -R /opt/opencv-3.0.0
 
 RUN mkdir /var/run/sshd \
     && echo 'root:root' | chpasswd \
